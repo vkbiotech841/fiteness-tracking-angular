@@ -1,12 +1,34 @@
-<section>
-    <form>
+<!-- Template deriven forms -->
+<section class="signup-form">
+    <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" #f="ngForm" (ngSubmit)="onSubmit(f)">
+        <!-- Material design form and input -->
         <mat-form-field>
-            <input type="email" matInput placeholder="Your email">
+            <input type="email" matInput placeholder="Your email" ngModel name="email" email required
+                #emailInput="ngModel">
+            <mat-error *ngIf="emailInput.hasError('required')">Field must not be empty</mat-error>
+            <mat-error *ngIf="!emailInput.hasError('required')">Email is invalid</mat-error>
         </mat-form-field>
 
         <mat-form-field>
-            <input type="password" matInput placeholder="Your password">
+            <input type="password" matInput placeholder="Your password" ngModel name="password" required minlength="8"
+                #passwordLength="ngModel">
+            <mat-hint align="start">Password should be at least 8 character long.</mat-hint>
+            <mat-hint align="end">{{passwordLength.value?.length}}/8 </mat-hint>
+            <mat-error align="start">Password should have least 8 characters.</mat-error>
         </mat-form-field>
+        <!-- Material design date picker -->
+        <mat-form-field>
+            <input matInput placeholder="Your birthdate" [matDatepicker]="picker" [max]="maxDate" ngModel
+                name="birthDate" required>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <!-- Material design checkbox -->
+        <mat-checkbox ngModel name="agree" required color="primary">
+            Agree to the term and conditions.
+        </mat-checkbox>
+
+        <button type="submit" mat-raised-button color="primary" [disabled]="f.invalid">Submit</button>
 
     </form>
 </section>
