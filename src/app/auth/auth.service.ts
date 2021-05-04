@@ -15,7 +15,9 @@ export class AuthService {
     private user: User;
     authChange = new Subject<boolean>();
 
-    constructor(private router: Router) { }
+    constructor(
+        private router: Router
+    ) { }
 
 
     registerUser(authData: AuthData) {
@@ -23,6 +25,7 @@ export class AuthService {
             email: authData.email,
             userId: Math.round(Math.random() * 10000).toString()
         };
+        console.log("registered user", this.user);
         this.authSuccessfully();
 
     };
@@ -33,6 +36,7 @@ export class AuthService {
             email: authData.email,
             userId: Math.round(Math.random() * 10000).toString()
         };
+        console.log("logged in user", this.user);
         this.authSuccessfully();
     };
 
@@ -56,5 +60,5 @@ export class AuthService {
     private authSuccessfully() {
         this.authChange.next(true);
         this.router.navigate(['/training']);
-    }
+    };
 }

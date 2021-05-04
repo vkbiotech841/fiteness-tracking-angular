@@ -19,10 +19,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isAuth = false;
   authSubscription: Subscription;
 
-  constructor(private authService: AuthService) { }
+  constructor(
+    private authService: AuthService
+  ) { }
 
   ngOnInit() {
     this.authSubscription = this.authService.authChange.subscribe((authStatus) => {
+      console.log("authstatus", authStatus);
       this.isAuth = authStatus;
     });
   }
@@ -36,6 +39,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   };
 
 
+  // Since, authSubscription is a not inbuild angular funtion.hence, need to be manually unsubscribe.
   ngOnDestroy() {
     this.authSubscription.unsubscribe();
   }
