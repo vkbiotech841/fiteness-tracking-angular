@@ -3,6 +3,7 @@ import { Subject } from 'rxjs/Subject';
 
 
 export class TrainingService {
+
     exerciseChanged = new Subject<Exercise>();
 
 
@@ -23,11 +24,18 @@ export class TrainingService {
 
     startExercise(selectedId: string) {
         this.runningExercise = this.availableExercises.find(ex => ex.id === selectedId);
+        console.log("running exercise", this.runningExercise);
         this.exerciseChanged.next({ ...this.runningExercise });
     };
 
     completeExercise() {
-        this.exercises.push({ ...this.runningExercise, date: new Date(), state: 'completed' });
+        this.exercises.push(
+            {
+                ...this.runningExercise,
+                date: new Date(),
+                state: 'completed'
+            }
+        );
         this.runningExercise = null;
         this.exerciseChanged.next(null);
     };

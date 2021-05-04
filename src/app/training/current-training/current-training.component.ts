@@ -35,7 +35,7 @@ export class CurrentTrainingComponent implements OnInit {
         clearInterval(this.timer);
       }
     }, step)
-  }
+  };
 
 
   // Stop Timer or resume timer: This stops the spinner progress and also opens a dialog box.
@@ -53,7 +53,7 @@ export class CurrentTrainingComponent implements OnInit {
         this.startOrResumeTimer();
       }
     });
-  }
+  };
 
 
 
